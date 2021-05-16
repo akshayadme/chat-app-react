@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import firebase from 'firebase';
 
 // Your web app's Firebase configuration
