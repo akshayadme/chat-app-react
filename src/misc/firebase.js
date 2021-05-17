@@ -1,5 +1,8 @@
-// /* eslint-disable import/no-extraneous-dependencies */
-import firebase from 'firebase';
+/* eslint-disable import/no-extraneous-dependencies */
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
+import 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
