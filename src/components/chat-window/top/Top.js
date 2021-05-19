@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonToolbar, Icon } from 'rsuite';
 import { useCurrentRoom } from '../../../context/CurrentRoomContext';
@@ -12,7 +12,7 @@ const Top = () => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center">
-        <h4>
+        <h4 className="text-disappear d-flex align-items-center">
           <Icon
             componentClass={Link}
             icon="arrow-circle-left"
@@ -24,7 +24,7 @@ const Top = () => {
                 : 'd-none'
             }
           />
-          <span className="text-disapear">{name} </span>
+          <span className="text-disappear">{name} </span>
         </h4>
 
         <ButtonToolbar className="ws-nowrap">todo</ButtonToolbar>
@@ -37,4 +37,4 @@ const Top = () => {
   );
 };
 
-export default Top;
+export default memo(Top);
