@@ -7,7 +7,6 @@ import RoomItem from './RoomItem';
 const ChatRoomList = ({ aboveElementHeight }) => {
   const rooms = useRooms();
   const location = useLocation();
-
   return (
     <Nav
       appearance="subtle"
@@ -25,9 +24,9 @@ const ChatRoomList = ({ aboveElementHeight }) => {
         rooms.map(room => {
           return (
             <Nav.Item
+              key={room.id}
               componentClass={Link}
               to={`/chat/${room.id}`}
-              key={room.id}
               eventKey={`/chat/${room.id}`}
             >
               <RoomItem room={room} />

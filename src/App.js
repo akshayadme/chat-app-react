@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router';
+import { Switch, Route } from 'react-router';
 import 'rsuite/dist/styles/rsuite-default.css';
 import Home from './components/pages/Home';
 import SignIn from './components/pages/SignIn';
@@ -15,9 +15,12 @@ function App() {
         <PublicRoute exact path="/signin">
           <SignIn />
         </PublicRoute>
-        <PrivateRoute exact path="/">
+        <PrivateRoute path="/">
           <Home />
         </PrivateRoute>
+        <Route>
+          <p>not found</p>
+        </Route>
       </Switch>
     </ProfileProvider>
   );
