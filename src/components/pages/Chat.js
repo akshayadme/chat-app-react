@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import { Loader } from 'rsuite';
 import { CurrentRoomProvider } from '../../context/CurrentRoomContext';
 import { useRooms } from '../../context/RoomsContext';
+import { auth } from '../../misc/firebase';
+import { transformToArray } from '../../misc/helper';
 import Bottom from '../chat-window/bottom/Bottom';
 import Messages from '../chat-window/messages/Messages';
 import Top from '../chat-window/top/Top';
@@ -21,11 +23,16 @@ const Chat = () => {
     return <h6 className="text-center mt-page">Chat {chatId} not found</h6>;
   }
 
-  const { name, description } = currentRoom;
+  const { name, desc } = currentRoom;
+
+  const admins = transformToArray(currentRoom.admins);
+  const isAdmin = admins.includes(auth.currentUser.uid);
 
   const currentRoomData = {
     name,
-    description,
+    desc,
+    admins,
+    isAdmin,
   };
 
   return (
