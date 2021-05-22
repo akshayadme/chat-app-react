@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
-import { database } from '../../../misc/firebase';
+import { auth, database } from '../../../misc/firebase';
 import { transformtoArrWithId } from '../../../misc/helper';
 import MessageItem from './MessageItem';
 
@@ -53,6 +53,38 @@ const Messages = () => {
     [chatId]
   );
 
+  const handleLike = useCallback(async msgId => {
+    const { uid } = auth.currentUser;
+    const messageRef = database.ref(`/messages/${msgId}`);
+
+    let alertMsg;
+
+    await messageRef.transaction(msg => {
+      if (msg) {
+        if (msg.likes && msg.likes[uid]) {
+          // eslint-disable-next-line no-param-reassign
+          msg.likeCount -= 1;
+          // eslint-disable-next-line no-param-reassign
+          msg.likes[uid] = null;
+          alertMsg = 'Likes Removed';
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          msg.likeCount += 1;
+
+          if (!msg.likes) {
+            // eslint-disable-next-line no-param-reassign
+            msg.likes = {};
+          }
+          // eslint-disable-next-line no-param-reassign
+          msg.likes[uid] = true;
+          alertMsg = 'Message Liked';
+        }
+      }
+      return msg;
+    });
+    Alert.info(alertMsg, 4000);
+  }, []);
+
   return (
     <>
       <ul className="msg-list custom-scroll">
@@ -64,6 +96,7 @@ const Messages = () => {
                 key={msg.id}
                 message={msg}
                 handleAdmin={handleAdmin}
+                handleLike={handleLike}
               />
             );
           })}
