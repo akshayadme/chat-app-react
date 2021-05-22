@@ -7,6 +7,8 @@ const EditableInput = ({
   label = null,
   placeholder = 'Write your value',
   emptyMsg = 'Input is empty',
+  warpperClassName = '',
+
   ...inputProps
 }) => {
   const [input, setInput] = useState(initialValue);
@@ -36,7 +38,7 @@ const EditableInput = ({
     setIsEditable(false);
   };
   return (
-    <div>
+    <div className={warpperClassName}>
       {label}
       <InputGroup>
         <Input
